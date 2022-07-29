@@ -17,7 +17,11 @@ public class LabelEditor extends JPanel {
 
     JButton deleteButton = new JButton("Delete");
 
-    public LabelEditor(String curString, int self, String type) {
+    DesignGUI dGui;
+
+    public LabelEditor(String curString, int self, String type, DesignGUI dGui) {
+        this.dGui = dGui;
+
         setPreferredSize(new Dimension(200, 200));
         setLayout(null);
         editText.setText(curString);
@@ -27,12 +31,12 @@ public class LabelEditor extends JPanel {
         deleteButton.setBounds(0, 150, 100, 25);
         deleteButton.setForeground(Color.RED);
 
-        deleteButton.addActionListener(new ActionListener(){
+        deleteButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                DesignGUI.delete(self,type);
-                
+
+                dGui.delete(self, type);
             }
 
         });

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import model.GUIObjects;
 
@@ -22,11 +23,13 @@ public class DesignGUI extends JFrame implements MouseListener {
     private String title;
     private String typeString;
     private String packageName;
+    DesignGUI dGuiSelf;
 
     public DesignGUI(int width, int height, boolean menu, String title, String packageName, String type) {
         this.packageName = packageName;
         this.title = title;
         this.typeString = type;
+        dGuiSelf = this;
 
         setLayout(null);
         setSize(width, height);
@@ -64,13 +67,20 @@ public class DesignGUI extends JFrame implements MouseListener {
 
     }
 
-    public static void delete(int self, String type) {
+    public void delete(int self, String type) {
         switch (type) {
             case "label":
                 remove(labelMap.get(self));
                 labelMap.remove(self);
+                repaint();
+                break;
+            case "button":
+                remove(buttonMap.get(self));
+                buttonMap.remove(self);
+                repaint();
                 break;
         }
+
     }
 
     @Override
@@ -80,7 +90,8 @@ public class DesignGUI extends JFrame implements MouseListener {
             switch (type.toString()) {
                 case "LABEL":
 
-                    labelMap.put(labelCount, new GUIObjects(new JLabel("Enter text here"), "label", labelCount));
+                    labelMap.put(labelCount,
+                            new GUIObjects(new JLabel("Enter text here"), "label", labelCount, dGuiSelf));
                     labelMap.get(labelCount).setBounds(e.getX(), e.getY() - 25, 150, 25);
                     add(labelMap.get(labelCount));
                     System.out.println(labelMap.get(labelCount).getBounds());
@@ -93,8 +104,18 @@ public class DesignGUI extends JFrame implements MouseListener {
                     break;
 
                 case "BUTTON":
-                    buttonMap.put(buttonCount, new GUIObjects(new JButton("Enter text here"), "button", buttonCount));
+                    buttonMap.put(buttonCount,
+                            new GUIObjects(new JLabel("Enter text here"), "button", buttonCount, dGuiSelf));
                     buttonMap.get(buttonCount).setBounds(e.getX(), e.getY() - 25, 150, 50);
+
+                    JLabel buttonLabel = new JLabel("Enter Text here");
+                    buttonLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    buttonLabel.setBounds(10, 10, buttonMap.get(buttonCount).getWidth(),
+                            buttonMap.get(buttonCount).getHeight());
+                    buttonLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    buttonLabel.setBackground(Color.DARK_GRAY);
+                    buttonMap.get(buttonCount).add(buttonLabel);
+
                     add(buttonMap.get(buttonCount));
                     System.out.println(buttonMap.get(buttonCount).getBounds());
                     buttonCount++;

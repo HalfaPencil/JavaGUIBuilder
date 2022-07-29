@@ -149,8 +149,8 @@ public class GUIReader {
                 out.write("\t\tsetTitle(\"" + dGui.getTitle() + "\");");
             out.write("\t\tsetLayout(null); \n");
             out.write("\t\tsetSize(" + dGui.getWidth() + "," + dGui.getHeight() + ");\n");
-            out.write("\t\tsetupLabels();\n");
-            out.write("\t\tsetupButtons();\n");
+            out.write("\t\tcreateLabels();\n");
+            out.write("\t\tcreateButtons();\n");
             out.write("\t\tsetVisible(true);\n");
             out.write("}\n\n");
 

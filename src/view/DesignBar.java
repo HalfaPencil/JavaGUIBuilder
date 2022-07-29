@@ -101,6 +101,7 @@ public class DesignBar extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 designGUI.setGUIType(GUIType.LABEL);
 
             }
@@ -108,5 +109,8 @@ public class DesignBar extends JFrame {
         });
 
         add(elementButtons.get(0));
+    }
+    private void createCheckBox(){
+        
     }
 }
